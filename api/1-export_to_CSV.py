@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 """model named 0-gather_data_from_an_API"""
-import requests, csv, sys
+import csv
+import requests
+import sys
 
 
 def export_data_to_csv():
@@ -15,7 +17,7 @@ typicode.com/users/{USER_ID}/todos/').json()
     USERNAME = data_user['username']
 
     with open('USER_ID.csv', 'w') as f:
-        writer = csv.writer(f)
+        writer = csv.writer(f, quoting=csv.QUOTE_ALL)
         for i in data_todos:
             writer.writerow([f"{i['userId']}", f"{USERNAME}",
                             f"{i['completed']}", f"{i['title']}"])
