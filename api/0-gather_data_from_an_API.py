@@ -21,13 +21,13 @@ typicode.com/users/{empolyee_id}/todos/').json()
         if data_todos[item]['completed'] is True:
             NUMBER_OF_DONE_TASKS += 1
             if item == len(data_todos) - 1:
-                str2 += f"\t {data_todos[item]['title']}"
+                str2 += "\t {}".format(data_todos[item]['title'])
             else:
-                str2 += f"\t {data_todos[item]['title']}\n"
+                str2 += "\t {}\n".format(data_todos[item]['title'])
         TOTAL_NUMBER_OF_TASKS += 1
 
-    str1 = f"Employee {EMPLOYEE_NAME} is done with\
-tasks({NUMBER_OF_DONE_TASKS}/{TOTAL_NUMBER_OF_TASKS}):"
+    str1 = "Employee {} is done withtasks({}/{}):"\
+        .format(EMPLOYEE_NAME, NUMBER_OF_DONE_TASKS, TOTAL_NUMBER_OF_TASKS)
     final = str1 + '\n' + str2
     print(final)
 
