@@ -16,7 +16,7 @@ typicode.com/users/{USER_ID}/todos/').json()
 
     USERNAME = data_user['username']
 
-    with open('USER_ID.csv', 'w') as f:
+    with open(f'{USER_ID}.csv', 'w') as f:
         writer = csv.writer(f, quoting=csv.QUOTE_ALL)
         for i in data_todos:
             writer.writerow([f"{i['userId']}", f"{USERNAME}",
