@@ -1,13 +1,11 @@
 #!/usr/bin/python3
 """model named 0-gather_data_from_an_API"""
-import requests
-from sys import argv
-import csv
+import requests, csv, sys
 
 
 def export_data_to_csv():
     """function that print extracted data"""
-    USER_ID = argv[1]
+    USER_ID = sys.argv[1]
     data_user = requests.get(f'https://jsonplaceholder.\
 typicode.com/users/{USER_ID}').json()
 
