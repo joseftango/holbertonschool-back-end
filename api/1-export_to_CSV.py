@@ -1,27 +1,24 @@
 #!/usr/bin/python3
-"""model named 0-gather_data_from_an_API"""
-import csv
-import requests
-import sys
-
-
-def export_data_to_csv():
-    """function that export extracted data to csv file"""
-    USER_ID = sys.argv[1]
-    data_user = requests.get(f'https://jsonplaceholder.\
-typicode.com/users/{USER_ID}').json()
-
-    data_todos = requests.get(f'https://jsonplaceholder.\
-typicode.com/users/{USER_ID}/todos/').json()
-
-    USERNAME = data_user['username']
-
-    with open(f'{USER_ID}.csv', 'w') as f:
-        writer = csv.writer(f, quoting=csv.QUOTE_ALL)
-        for i in data_todos:
-            writer.writerow([f"{i['userId']}", f"{USERNAME}",
-                            f"{i['completed']}", f"{i['title']}"])
+'''extend Python script to export data in the CSV format'''
+from requests import get
+from sys import argv
 
 
 if __name__ == '__main__':
-    export_data_to_csv()
+    employee_id = int(argv[1])
+    remp_res = get(f'https://jsonplaceholder.typicode.com/users/{employee_id}')
+    remp_res = remp_res.json()
+    response_tasks = get('https://jsonplaceholder.typicode.com/todos').json()
+
+    USERNAME = remp_res['name']
+    USER_ID = remp_res['id']
+    FILE_NAME = f'{employee_id}.csv'
+
+    with open(FILE_NAME, 'w', encoding='UTF-8') as csv_file:
+        for task in response_tasks:
+            if task['userId'] == employee_id:
+                TASK_COMPLETED_STATUS = task['completed']
+                TASK_TITLE = task['title']
+                record = f'"{USER_ID}","{USERNAME}",\
+"{TASK_COMPLETED_STATUS}","{TASK_TITLE}"\n'
+                csv_file.write(record)
