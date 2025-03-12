@@ -11,7 +11,7 @@ if __name__ == '__main__':
     remp_res = remp_res.json()
     response_tasks = get('https://jsonplaceholder.typicode.com/todos').json()
 
-    USERNAME = remp_res['name']
+    USERNAME = remp_res['username']
     USER_ID = remp_res['id']
     FILE_NAME = '{}.csv'.format(em_id)
 
