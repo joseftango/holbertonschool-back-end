@@ -1,33 +1,29 @@
 #!/usr/bin/python3
-"""model named 0-gather_data_from_an_API"""
+'''
+Write a Python script that, using this REST API,
+for a given employee ID, returns information about
+his/her TODO list progress
+export data to the JSON format.
+'''
 import json
 import requests
 import sys
 
 
-def export_data_to_json():
-    """function that extract data to export it in json"""
-    USER_ID = sys.argv[1]
-    data_user = requests.get(f'https://jsonplaceholder.\
-typicode.com/users/{USER_ID}').json()
-
-    data_todos = requests.get(f'https://jsonplaceholder.\
-typicode.com/users/{USER_ID}/todos/').json()
-
-    USERNAME = data_user['username']
-
-    data_dict = {}
-    data_dict[f'{USER_ID}'] = []
-    for i in data_todos:
-        todos_dict = {}
-        todos_dict['task'] = i['title']
-        todos_dict['completed'] = i['completed']
-        todos_dict['username'] = USERNAME
-        data_dict[f'{USER_ID}'].append(todos_dict)
-
-    with open(f'{USER_ID}.json', 'w') as f:
-        json.dump(data_dict, f)
-
-
 if __name__ == '__main__':
-    export_data_to_json()
+    id = sys.argv[1]
+    url_user = 'https://jsonplaceholder.typicode.com/users/' + id
+    res = requests.get(url_user).json()
+    u = res.get('username')
+    res = requests.get(
+        'https://jsonplaceholder.typicode.com/users/' +
+        (id) + '/todos').json()
+
+    data = {f'{id}': []}
+    for d in res:
+        my_dic = {'task': d['title'],
+                  'completed': d['completed'], 'username': u}
+        data[f'{id}'].append(my_dic)
+
+    with open(f'{2}.json', 'w', encoding='UTF-8') as f:
+        json.dump(data, f)
